@@ -1,6 +1,6 @@
 ﻿namespace filtragemParam
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,35 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            splitContainer1 = new SplitContainer();
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
-            splitContainer1.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            debugBox = new GroupBox();
             SuspendLayout();
             // 
-            // splitContainer1
+            // debugBox
             // 
-            splitContainer1.Dock = DockStyle.Fill;
-            splitContainer1.Location = new Point(0, 0);
-            splitContainer1.Name = "splitContainer1";
-            splitContainer1.Size = new Size(1052, 550);
-            splitContainer1.SplitterDistance = 350;
-            splitContainer1.TabIndex = 0;
+            debugBox.Location = new Point(318, 29);
+            debugBox.Name = "debugBox";
+            debugBox.Size = new Size(250, 333);
+            debugBox.TabIndex = 0;
+            debugBox.TabStop = false;
+            debugBox.Text = "debug";
             // 
-            // Form1
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1052, 550);
-            Controls.Add(splitContainer1);
-            Name = "Form1";
-            Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
-            splitContainer1.ResumeLayout(false);
+            Controls.Add(debugBox);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "MainForm";
+            Text = "Módulo 4 - Filtragem de Parâmetros";
             ResumeLayout(false);
         }
 
         #endregion
 
-        private SplitContainer splitContainer1;
+        private GroupBox debugBox;
     }
 }
