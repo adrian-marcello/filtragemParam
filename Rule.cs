@@ -11,6 +11,7 @@ namespace filtragemParam
         public string n { get; set; }
         public string op { get; set; }
         public int valor { get; set; }
+        public int index { get; set; }
 
         public string texto = "";
 
@@ -20,23 +21,37 @@ namespace filtragemParam
             op = p_op;
             valor = p_valor;
 
-            texto = "I" + n + " " + op + " " + valor;
-
         }
 
-        public bool checkEvent(int recValue)
+        public bool checkEvent(PacoteIED pacote)
         {
+            int param = 0;
+            switch (this.n)
+            {
+                case "a":
+                    param = pacote.Ia;
+                    break;
+                case "b":
+                    param = pacote.Ib;
+                    break;
+                case "c":
+                    param = pacote.Ic;
+                    break;
+            }
+
+            bool flag = false;
             switch (this.op)
             {
-                case "<":
-                    return recValue < this.valor;
-                case "=":
-                    return recValue == this.valor;
-                case ">":
-                    return recValue > this.valor;
-                default:
-                    return false;
+                case "<": flag = (param < this.valor); break;
+                case "=": flag = (param == this.valor); break;
+                case ">": flag = (param > this.valor); break;
             }
+            return flag;
+        }
+
+        public override string ToString()
+        {
+            return "I" + n + " " + op + " " + valor;
         }
     }
 }
