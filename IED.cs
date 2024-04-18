@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace filtragemParam
 {
-    internal class IED
+    public class IED
     {
 
         public int id; //id da IED analisada por essa classe
         public int qtdEventos; //quantidade de eventos encontradas
 
-        public IED(int id, int qtdEventos)
+        public IED(int p_id, int p_qtdEventos)
         {
-            this.id = id;
-            this.qtdEventos = qtdEventos;
+            id = p_id;
+            qtdEventos = p_qtdEventos;
         }
         public int somaEvento()
         {
-            this.qtdEventos++;
-            return this.qtdEventos;
+            qtdEventos++;
+            return qtdEventos;
         }
 
 

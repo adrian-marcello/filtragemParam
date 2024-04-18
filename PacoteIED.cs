@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace filtragemParam
 {
-    internal class PacoteIED
+    public class PacoteIED
     {
         public int Ia { get; set; }
         public int Ib { get; set; }

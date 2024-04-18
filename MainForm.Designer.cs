@@ -30,11 +30,9 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            debugBox = new GroupBox();
             startButton = new Button();
             ruleList = new ListBox();
             addRuleButton = new Button();
-            treeView1 = new TreeView();
             selectN = new ComboBox();
             selectOp = new ComboBox();
             numValor = new NumericUpDown();
@@ -49,16 +47,11 @@
             RightToolStripPanel = new ToolStripPanel();
             LeftToolStripPanel = new ToolStripPanel();
             ContentPanel = new ToolStripContentPanel();
+            stopButton = new Button();
+            listBoxIED = new ListBox();
+            debugBox = new TextBox();
             ((System.ComponentModel.ISupportInitialize)numValor).BeginInit();
             SuspendLayout();
-            // 
-            // debugBox
-            // 
-            debugBox.Location = new Point(320, 23);
-            debugBox.Name = "debugBox";
-            debugBox.Size = new Size(250, 499);
-            debugBox.TabIndex = 0;
-            debugBox.TabStop = false;
             // 
             // startButton
             // 
@@ -88,13 +81,6 @@
             addRuleButton.Text = "Adicionar Regra";
             addRuleButton.UseVisualStyleBackColor = true;
             addRuleButton.Click += addRuleButton_Click;
-            // 
-            // treeView1
-            // 
-            treeView1.Location = new Point(616, 23);
-            treeView1.Name = "treeView1";
-            treeView1.Size = new Size(414, 499);
-            treeView1.TabIndex = 4;
             // 
             // selectN
             // 
@@ -155,9 +141,9 @@
             button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
             button1.BackgroundImageLayout = ImageLayout.Zoom;
             button1.ImageAlign = ContentAlignment.BottomCenter;
-            button1.Location = new Point(212, 225);
+            button1.Location = new Point(250, 495);
             button1.Name = "button1";
-            button1.Size = new Size(64, 63);
+            button1.Size = new Size(26, 23);
             button1.TabIndex = 10;
             button1.UseVisualStyleBackColor = true;
             // 
@@ -169,6 +155,11 @@
             label4.Size = new Size(243, 20);
             label4.TabIndex = 11;
             label4.Text = "Informações para Criação de Regra";
+            // 
+            // timer
+            // 
+            timer.Interval = 1000;
+            timer.Tick += timer_Tick;
             // 
             // BottomToolStripPanel
             // 
@@ -206,11 +197,41 @@
             // 
             ContentPanel.Size = new Size(138, 194);
             // 
+            // stopButton
+            // 
+            stopButton.Location = new Point(212, 225);
+            stopButton.Name = "stopButton";
+            stopButton.Size = new Size(64, 63);
+            stopButton.TabIndex = 12;
+            stopButton.Text = "Parar";
+            stopButton.UseVisualStyleBackColor = true;
+            stopButton.Click += stopButton_Click;
+            // 
+            // listBoxIED
+            // 
+            listBoxIED.FormattingEnabled = true;
+            listBoxIED.Location = new Point(620, 34);
+            listBoxIED.Name = "listBoxIED";
+            listBoxIED.Size = new Size(265, 484);
+            listBoxIED.TabIndex = 0;
+            // 
+            // debugBox
+            // 
+            debugBox.Location = new Point(355, 34);
+            debugBox.Multiline = true;
+            debugBox.Name = "debugBox";
+            debugBox.ScrollBars = ScrollBars.Vertical;
+            debugBox.Size = new Size(235, 484);
+            debugBox.TabIndex = 13;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1052, 550);
+            ClientSize = new Size(928, 550);
+            Controls.Add(debugBox);
+            Controls.Add(listBoxIED);
+            Controls.Add(stopButton);
             Controls.Add(label4);
             Controls.Add(button1);
             Controls.Add(label3);
@@ -219,26 +240,21 @@
             Controls.Add(numValor);
             Controls.Add(selectOp);
             Controls.Add(selectN);
-            Controls.Add(treeView1);
             Controls.Add(addRuleButton);
             Controls.Add(ruleList);
             Controls.Add(startButton);
-            Controls.Add(debugBox);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
-            Text = "Módulo 4 - Filtragem de Parâmetros";
+            Text = "Módulo 4 - Filtragem de Parâmetros, v0.1";
             ((System.ComponentModel.ISupportInitialize)numValor).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private GroupBox debugBox;
         private Button startButton;
         private ListBox ruleList;
         private Button addRuleButton;
-        private TreeView treeView1;
         private ComboBox selectN;
         private ComboBox selectOp;
         private NumericUpDown numValor;
@@ -253,5 +269,8 @@
         private ToolStripPanel RightToolStripPanel;
         private ToolStripPanel LeftToolStripPanel;
         private ToolStripContentPanel ContentPanel;
+        private Button stopButton;
+        private ListBox listBoxIED;
+        private TextBox debugBox;
     }
 }
