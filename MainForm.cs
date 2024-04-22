@@ -21,6 +21,7 @@ namespace filtragemParam
         List<IED> ieds = new List<IED>(); //lista de IEDs encontradas
         Mutex mutexRules = new Mutex();
         Mutex mutexIEDs = new Mutex();
+        Relatorio relatorio = new Relatorio(0, []);
 
 
 
@@ -137,16 +138,36 @@ namespace filtragemParam
 
         private void timer_Tick(object sender, EventArgs e)
         {
+            Thread t = new Thread(sendReport);
+            t.Start();
+        }
+
+        public void sendReport()
+        {
             mutexIEDs.WaitOne();
             listBoxIED.BeginUpdate();
             listBoxIED.Items.Clear();
-            for (int i = 0;i<ieds.Count;i++)
+
+
+            int totalEvents = 0;
+            for (int i = 0; i < ieds.Count; i++)
             {
                 IED ied = ieds[i];
-                listBoxIED.Items.Add("IED "+ ied.id.ToString() + ": " + ied.qtdEventos.ToString());
+                totalEvents += ied.qtdEventos;
+                listBoxIED.Items.Add("IED " + ied.id.ToString() + ": " + ied.qtdEventos.ToString());
             }
+
+            relatorio.totalEvents = totalEvents;
+            relatorio.events = ieds;
+            string json = JsonConvert.SerializeObject(relatorio);
+            debugBox.Text = json;
+
             listBoxIED.EndUpdate();
             mutexIEDs.ReleaseMutex();
+
+            UdpClient udpClient = new UdpClient();
+            Byte[] sendBytes = Encoding.ASCII.GetBytes(json);
+            udpClient.Send(sendBytes, sendBytes.Length, "192.168.15.11", 11666);
         }
     }
 }

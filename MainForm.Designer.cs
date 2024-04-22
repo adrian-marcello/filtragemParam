@@ -40,7 +40,6 @@
             label2 = new Label();
             label3 = new Label();
             button1 = new Button();
-            label4 = new Label();
             timer = new System.Windows.Forms.Timer(components);
             BottomToolStripPanel = new ToolStripPanel();
             TopToolStripPanel = new ToolStripPanel();
@@ -50,12 +49,16 @@
             stopButton = new Button();
             listBoxIED = new ListBox();
             debugBox = new TextBox();
+            groupBox1 = new GroupBox();
+            groupBox2 = new GroupBox();
             ((System.ComponentModel.ISupportInitialize)numValor).BeginInit();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // startButton
             // 
-            startButton.Location = new Point(112, 225);
+            startButton.Location = new Point(112, 12);
             startButton.Name = "startButton";
             startButton.Size = new Size(94, 63);
             startButton.TabIndex = 1;
@@ -66,15 +69,15 @@
             // ruleList
             // 
             ruleList.FormattingEnabled = true;
-            ruleList.Location = new Point(12, 294);
+            ruleList.Location = new Point(12, 81);
             ruleList.Name = "ruleList";
-            ruleList.Size = new Size(264, 224);
+            ruleList.Size = new Size(329, 184);
             ruleList.TabIndex = 2;
             ruleList.SelectedIndexChanged += ruleList_SelectedIndexChanged;
             // 
             // addRuleButton
             // 
-            addRuleButton.Location = new Point(12, 225);
+            addRuleButton.Location = new Point(12, 12);
             addRuleButton.Name = "addRuleButton";
             addRuleButton.Size = new Size(94, 63);
             addRuleButton.TabIndex = 3;
@@ -87,7 +90,7 @@
             selectN.DropDownStyle = ComboBoxStyle.DropDownList;
             selectN.FormattingEnabled = true;
             selectN.Items.AddRange(new object[] { "a", "b", "c" });
-            selectN.Location = new Point(12, 60);
+            selectN.Location = new Point(12, 52);
             selectN.Name = "selectN";
             selectN.Size = new Size(54, 28);
             selectN.TabIndex = 0;
@@ -97,14 +100,14 @@
             selectOp.DropDownStyle = ComboBoxStyle.DropDownList;
             selectOp.FormattingEnabled = true;
             selectOp.Items.AddRange(new object[] { "<", "=", ">" });
-            selectOp.Location = new Point(12, 94);
+            selectOp.Location = new Point(12, 86);
             selectOp.Name = "selectOp";
             selectOp.Size = new Size(54, 28);
             selectOp.TabIndex = 5;
             // 
             // numValor
             // 
-            numValor.Location = new Point(12, 128);
+            numValor.Location = new Point(12, 120);
             numValor.Name = "numValor";
             numValor.Size = new Size(54, 27);
             numValor.TabIndex = 6;
@@ -112,7 +115,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(72, 63);
+            label1.Location = new Point(72, 55);
             label1.Name = "label1";
             label1.Size = new Size(138, 20);
             label1.TabIndex = 7;
@@ -121,7 +124,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(72, 97);
+            label2.Location = new Point(72, 89);
             label2.Name = "label2";
             label2.Size = new Size(183, 20);
             label2.TabIndex = 8;
@@ -130,7 +133,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(72, 135);
+            label3.Location = new Point(72, 127);
             label3.Name = "label3";
             label3.Size = new Size(112, 20);
             label3.TabIndex = 9;
@@ -141,20 +144,11 @@
             button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
             button1.BackgroundImageLayout = ImageLayout.Zoom;
             button1.ImageAlign = ContentAlignment.BottomCenter;
-            button1.Location = new Point(250, 495);
+            button1.Location = new Point(282, 26);
             button1.Name = "button1";
             button1.Size = new Size(26, 23);
             button1.TabIndex = 10;
             button1.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(12, 23);
-            label4.Name = "label4";
-            label4.Size = new Size(243, 20);
-            label4.TabIndex = 11;
-            label4.Text = "Informações para Criação de Regra";
             // 
             // timer
             // 
@@ -199,7 +193,7 @@
             // 
             // stopButton
             // 
-            stopButton.Location = new Point(212, 225);
+            stopButton.Location = new Point(212, 12);
             stopButton.Name = "stopButton";
             stopButton.Size = new Size(64, 63);
             stopButton.TabIndex = 12;
@@ -210,43 +204,64 @@
             // listBoxIED
             // 
             listBoxIED.FormattingEnabled = true;
-            listBoxIED.Location = new Point(620, 34);
+            listBoxIED.Location = new Point(641, 12);
             listBoxIED.Name = "listBoxIED";
-            listBoxIED.Size = new Size(265, 484);
+            listBoxIED.Size = new Size(265, 504);
             listBoxIED.TabIndex = 0;
             // 
             // debugBox
             // 
-            debugBox.Location = new Point(355, 34);
+            debugBox.Location = new Point(379, 12);
             debugBox.Multiline = true;
             debugBox.Name = "debugBox";
             debugBox.ScrollBars = ScrollBars.Vertical;
-            debugBox.Size = new Size(235, 484);
+            debugBox.Size = new Size(235, 504);
             debugBox.TabIndex = 13;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(selectN);
+            groupBox1.Controls.Add(selectOp);
+            groupBox1.Controls.Add(numValor);
+            groupBox1.Controls.Add(label3);
+            groupBox1.Controls.Add(label1);
+            groupBox1.Location = new Point(12, 12);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(347, 219);
+            groupBox1.TabIndex = 14;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Informações para criação de regras";
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(addRuleButton);
+            groupBox2.Controls.Add(startButton);
+            groupBox2.Controls.Add(ruleList);
+            groupBox2.Controls.Add(button1);
+            groupBox2.Controls.Add(stopButton);
+            groupBox2.Location = new Point(12, 237);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(347, 279);
+            groupBox2.TabIndex = 15;
+            groupBox2.TabStop = false;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(928, 550);
+            Controls.Add(groupBox2);
             Controls.Add(debugBox);
+            Controls.Add(groupBox1);
             Controls.Add(listBoxIED);
-            Controls.Add(stopButton);
-            Controls.Add(label4);
-            Controls.Add(button1);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(numValor);
-            Controls.Add(selectOp);
-            Controls.Add(selectN);
-            Controls.Add(addRuleButton);
-            Controls.Add(ruleList);
-            Controls.Add(startButton);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
-            Text = "Módulo 4 - Filtragem de Parâmetros, v0.1";
+            Text = "Módulo 4 - Filtragem de Parâmetros, v0.2";
             ((System.ComponentModel.ISupportInitialize)numValor).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -262,7 +277,6 @@
         private Label label2;
         private Label label3;
         private Button button1;
-        private Label label4;
         private System.Windows.Forms.Timer timer;
         private ToolStripPanel BottomToolStripPanel;
         private ToolStripPanel TopToolStripPanel;
@@ -272,5 +286,7 @@
         private Button stopButton;
         private ListBox listBoxIED;
         private TextBox debugBox;
+        private GroupBox groupBox1;
+        private GroupBox groupBox2;
     }
 }

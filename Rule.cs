@@ -67,8 +67,6 @@ namespace filtragemParam
                                 IED ied = new IED(packet.idDispositivo,1);
                                 listaIEDs.Add(ied);
                             }
-                            //tree.IndexOfKey(packet.idDispositivo.ToString());
-                            //tree.Add(packet.idDispositivo.ToString
                             mutex.ReleaseMutex();
                         }
                     }
