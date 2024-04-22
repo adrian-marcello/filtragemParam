@@ -11,6 +11,7 @@ namespace filtragemParam
 {
     internal class Rule
     {
+        public int id {  get; set; }
         public string n { get; set; }
         public string op { get; set; }
         public int valor { get; set; }
@@ -24,7 +25,7 @@ namespace filtragemParam
         public ConcurrentQueue<PacoteIED> buffer { get; set; }
 
 
-        public Rule(string p_n, string p_op, int p_valor, Mutex p_mutex, List<IED> p_listaIEDs, TextBox p_debugBox)
+        public Rule(string p_n, string p_op, int p_valor, Mutex p_mutex, List<IED> p_listaIEDs, int p_id, TextBox p_debugBox)
         {
             n = p_n;
             op = p_op;
@@ -34,6 +35,7 @@ namespace filtragemParam
             debugBox = p_debugBox;
             mutex = p_mutex;
             listaIEDs = p_listaIEDs;
+            id = p_id;
         }
 
         public override string ToString()

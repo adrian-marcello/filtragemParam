@@ -31,7 +31,6 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             startButton = new Button();
-            ruleList = new ListBox();
             addRuleButton = new Button();
             selectN = new ComboBox();
             selectOp = new ComboBox();
@@ -39,7 +38,6 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            button1 = new Button();
             timer = new System.Windows.Forms.Timer(components);
             BottomToolStripPanel = new ToolStripPanel();
             TopToolStripPanel = new ToolStripPanel();
@@ -50,6 +48,10 @@
             listBoxIED = new ListBox();
             debugBox = new TextBox();
             groupBox1 = new GroupBox();
+            listViewRule = new ListView();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
+            cleanRulesButton = new Button();
             groupBox2 = new GroupBox();
             ((System.ComponentModel.ISupportInitialize)numValor).BeginInit();
             groupBox1.SuspendLayout();
@@ -58,28 +60,19 @@
             // 
             // startButton
             // 
-            startButton.Location = new Point(112, 12);
+            startButton.Location = new Point(12, 18);
             startButton.Name = "startButton";
-            startButton.Size = new Size(94, 63);
+            startButton.Size = new Size(184, 63);
             startButton.TabIndex = 1;
             startButton.Text = "Iniciar Módulo";
             startButton.UseVisualStyleBackColor = true;
             startButton.Click += startButton_Click;
             // 
-            // ruleList
-            // 
-            ruleList.FormattingEnabled = true;
-            ruleList.Location = new Point(12, 81);
-            ruleList.Name = "ruleList";
-            ruleList.Size = new Size(329, 184);
-            ruleList.TabIndex = 2;
-            ruleList.SelectedIndexChanged += ruleList_SelectedIndexChanged;
-            // 
             // addRuleButton
             // 
-            addRuleButton.Location = new Point(12, 12);
+            addRuleButton.Location = new Point(12, 153);
             addRuleButton.Name = "addRuleButton";
-            addRuleButton.Size = new Size(94, 63);
+            addRuleButton.Size = new Size(184, 60);
             addRuleButton.TabIndex = 3;
             addRuleButton.Text = "Adicionar Regra";
             addRuleButton.UseVisualStyleBackColor = true;
@@ -139,17 +132,6 @@
             label3.TabIndex = 9;
             label3.Text = "Valor Numérico";
             // 
-            // button1
-            // 
-            button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
-            button1.BackgroundImageLayout = ImageLayout.Zoom;
-            button1.ImageAlign = ContentAlignment.BottomCenter;
-            button1.Location = new Point(282, 26);
-            button1.Name = "button1";
-            button1.Size = new Size(26, 23);
-            button1.TabIndex = 10;
-            button1.UseVisualStyleBackColor = true;
-            // 
             // timer
             // 
             timer.Interval = 1000;
@@ -193,9 +175,9 @@
             // 
             // stopButton
             // 
-            stopButton.Location = new Point(212, 12);
+            stopButton.Location = new Point(202, 18);
             stopButton.Name = "stopButton";
-            stopButton.Size = new Size(64, 63);
+            stopButton.Size = new Size(139, 63);
             stopButton.TabIndex = 12;
             stopButton.Text = "Parar";
             stopButton.UseVisualStyleBackColor = true;
@@ -206,6 +188,7 @@
             listBoxIED.FormattingEnabled = true;
             listBoxIED.Location = new Point(641, 12);
             listBoxIED.Name = "listBoxIED";
+            listBoxIED.SelectionMode = SelectionMode.None;
             listBoxIED.Size = new Size(265, 504);
             listBoxIED.TabIndex = 0;
             // 
@@ -217,9 +200,13 @@
             debugBox.ScrollBars = ScrollBars.Vertical;
             debugBox.Size = new Size(235, 504);
             debugBox.TabIndex = 13;
+            debugBox.Visible = false;
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(listViewRule);
+            groupBox1.Controls.Add(cleanRulesButton);
+            groupBox1.Controls.Add(addRuleButton);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(selectN);
             groupBox1.Controls.Add(selectOp);
@@ -228,21 +215,49 @@
             groupBox1.Controls.Add(label1);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(347, 219);
+            groupBox1.Size = new Size(347, 411);
             groupBox1.TabIndex = 14;
             groupBox1.TabStop = false;
             groupBox1.Text = "Informações para criação de regras";
             // 
+            // listViewRule
+            // 
+            listViewRule.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2 });
+            listViewRule.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            listViewRule.Location = new Point(12, 219);
+            listViewRule.Name = "listViewRule";
+            listViewRule.ShowGroups = false;
+            listViewRule.Size = new Size(329, 181);
+            listViewRule.TabIndex = 16;
+            listViewRule.UseCompatibleStateImageBehavior = false;
+            listViewRule.View = View.Details;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "Index";
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "Regra";
+            columnHeader2.Width = 120;
+            // 
+            // cleanRulesButton
+            // 
+            cleanRulesButton.Location = new Point(202, 153);
+            cleanRulesButton.Name = "cleanRulesButton";
+            cleanRulesButton.Size = new Size(139, 60);
+            cleanRulesButton.TabIndex = 10;
+            cleanRulesButton.Text = "Limpar Regras";
+            cleanRulesButton.UseVisualStyleBackColor = true;
+            cleanRulesButton.Click += cleanRulesButton_Click;
+            // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(addRuleButton);
             groupBox2.Controls.Add(startButton);
-            groupBox2.Controls.Add(ruleList);
-            groupBox2.Controls.Add(button1);
             groupBox2.Controls.Add(stopButton);
-            groupBox2.Location = new Point(12, 237);
+            groupBox2.Location = new Point(12, 429);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(347, 279);
+            groupBox2.Size = new Size(347, 87);
             groupBox2.TabIndex = 15;
             groupBox2.TabStop = false;
             // 
@@ -257,7 +272,7 @@
             Controls.Add(listBoxIED);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
-            Text = "Módulo 4 - Filtragem de Parâmetros, v0.2";
+            Text = "Módulo 4 - Filtragem de Parâmetros, v1.0";
             ((System.ComponentModel.ISupportInitialize)numValor).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
@@ -268,7 +283,6 @@
 
         #endregion
         private Button startButton;
-        private ListBox ruleList;
         private Button addRuleButton;
         private ComboBox selectN;
         private ComboBox selectOp;
@@ -276,7 +290,6 @@
         private Label label1;
         private Label label2;
         private Label label3;
-        private Button button1;
         private System.Windows.Forms.Timer timer;
         private ToolStripPanel BottomToolStripPanel;
         private ToolStripPanel TopToolStripPanel;
@@ -288,5 +301,9 @@
         private TextBox debugBox;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
+        private ListView listViewRule;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
+        private Button cleanRulesButton;
     }
 }

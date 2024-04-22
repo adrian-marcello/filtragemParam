@@ -22,6 +22,7 @@ namespace filtragemParam
         Mutex mutexRules = new Mutex();
         Mutex mutexIEDs = new Mutex();
         Relatorio relatorio = new Relatorio(0, []);
+        int idcount = 0;
 
 
 
@@ -45,22 +46,24 @@ namespace filtragemParam
                 receiving = true;
 
                 //UdpClient usocketConexaoUDPModulo1 = new UdpClient(11666);
-                byte[] bytesRecebidosModulo1 = new byte[256];
+                byte[] bytes = new byte[256];
                 //IPEndPoint ipConexaoRecebimentoUDPModulo1 = new IPEndPoint(IPAddress.Any, 11666);
 
                 while (receiving)
                 {
-                    int i = s.ReceiveFrom(bytesRecebidosModulo1, ref senderRemote);
-                    string receivedString = Encoding.ASCII.GetString(bytesRecebidosModulo1);
+                    int i = s.ReceiveFrom(bytes, ref senderRemote);
+                    string receivedString = Encoding.ASCII.GetString(bytes);
                     //debugBox.Text = debugBox.Text + receivedString;
                     string[] subs = receivedString.Split('}');
                     string truncate = subs[0] + '}';
                     PacoteIED packet = JsonConvert.DeserializeObject<PacoteIED>(truncate);
 
+                    mutexRules.WaitOne();
                     for (int r = 0; r < rules.Count; r++)
                     {
                         rules[r].buffer.Enqueue(packet);
                     }
+                    mutexRules.ReleaseMutex();
 
 
                 }
@@ -80,7 +83,7 @@ namespace filtragemParam
             Thread t = new Thread(receiveUDPPacket);
             t.Start();
 
-            for (int r = 0; r < ruleList.Items.Count; r++)
+            for (int r = 0; r < rules.Count; r++)
             {
                 Rule rule = rules[r];
                 rule.running = true;
@@ -92,19 +95,24 @@ namespace filtragemParam
 
 
 
-        private void ruleList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
 
         private void addRuleButton_Click(object sender, EventArgs e)
         {
             if (validateForm())
             {
-                Rule r = new Rule(selectN.Text, selectOp.Text, (int)numValor.Value, mutexIEDs, ieds, debugBox);
+                mutexRules.WaitOne();
+                idcount++;
+                Rule r = new Rule(selectN.Text, selectOp.Text, (int)numValor.Value, mutexIEDs, ieds, idcount, debugBox);
                 rules.Add(r);
-                ruleList.Items.Add(r.ToString());
+                listViewRule.Items.Add(new ListViewItem(new String[] { r.id.ToString(), r.ToString() }));
+                if (receiving)
+                {
+                    r.running = true;
+                    Thread ruleThread = new Thread(new ThreadStart(r.analyzePackets));
+                    ruleThread.Start();
+                }
+                mutexRules.ReleaseMutex();
             }
 
         }
@@ -156,11 +164,13 @@ namespace filtragemParam
                 totalEvents += ied.qtdEventos;
                 listBoxIED.Items.Add("IED " + ied.id.ToString() + ": " + ied.qtdEventos.ToString());
             }
+            listBoxIED.Items.Add("");
+            listBoxIED.Items.Add("Total de eventos: " + totalEvents.ToString());
 
             relatorio.totalEvents = totalEvents;
             relatorio.events = ieds;
             string json = JsonConvert.SerializeObject(relatorio);
-            debugBox.Text = json;
+            debugBox.Text = json + '\n';
 
             listBoxIED.EndUpdate();
             mutexIEDs.ReleaseMutex();
@@ -168,6 +178,18 @@ namespace filtragemParam
             UdpClient udpClient = new UdpClient();
             Byte[] sendBytes = Encoding.ASCII.GetBytes(json);
             udpClient.Send(sendBytes, sendBytes.Length, "192.168.15.11", 11666);
+        }
+
+        private void cleanRulesButton_Click(object sender, EventArgs e)
+        {
+            mutexRules.WaitOne();
+            for (int i = 0; i < rules.Count; i++)
+            {
+                rules[i].running = false;
+            }
+            rules.Clear();
+            mutexRules.ReleaseMutex();
+            listViewRule.Items.Clear();
         }
     }
 }
