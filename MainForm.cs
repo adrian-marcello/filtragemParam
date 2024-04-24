@@ -38,8 +38,13 @@ namespace filtragemParam
             try
             {
                 Socket s = new Socket(SocketType.Dgram, ProtocolType.Udp);
-                //IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("192.168.15.11"), 12345);
+
+                //para colocar o endpoint no IP da própria máquina para teste troque as duas linhas abaix
+
+                //IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("10.14.58.131"), 12345);
                 IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, 12345);
+
+
                 IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
                 EndPoint senderRemote = (EndPoint)sender;
 
@@ -171,6 +176,9 @@ namespace filtragemParam
 
             listBoxIED.EndUpdate();
             mutexIEDs.ReleaseMutex();
+
+            //envio dos pacotes de relatório em formato json
+            //caso broadcast não funcione, inserir o próprio IP para testar o envio
 
             UdpClient udpClient = new UdpClient();
             Byte[] sendBytes = Encoding.ASCII.GetBytes(json);

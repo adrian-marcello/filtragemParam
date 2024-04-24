@@ -272,7 +272,7 @@
             Controls.Add(listBoxIED);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
-            Text = "Módulo 4 - Filtragem de Parâmetros, v1.0";
+            Text = "Módulo 4 - Filtragem de Parâmetros, v1.1";
             ((System.ComponentModel.ISupportInitialize)numValor).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
