@@ -38,22 +38,21 @@ namespace filtragemParam
             try
             {
                 Socket s = new Socket(SocketType.Dgram, ProtocolType.Udp);
-                IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("192.168.15.11"), 12345);
+                //IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("192.168.15.11"), 12345);
+                IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, 12345);
                 IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
                 EndPoint senderRemote = (EndPoint)sender;
 
                 s.Bind(endPoint);
                 receiving = true;
 
-                //UdpClient usocketConexaoUDPModulo1 = new UdpClient(11666);
                 byte[] bytes = new byte[256];
-                //IPEndPoint ipConexaoRecebimentoUDPModulo1 = new IPEndPoint(IPAddress.Any, 11666);
+                
 
                 while (receiving)
                 {
                     int i = s.ReceiveFrom(bytes, ref senderRemote);
                     string receivedString = Encoding.ASCII.GetString(bytes);
-                    //debugBox.Text = debugBox.Text + receivedString;
                     string[] subs = receivedString.Split('}');
                     string truncate = subs[0] + '}';
                     PacoteIED packet = JsonConvert.DeserializeObject<PacoteIED>(truncate);
@@ -119,8 +118,6 @@ namespace filtragemParam
 
         public bool validateForm()
         {
-            //debugBox.Text = debugBox.Text + selectN.Text + "\n" + selectOp.Text + "\n" + numValor.Value;
-
             if (selectN.Text == "" || selectOp.Text == "")
             {
                 showError("Por Favor, Preencha todos os campos antes de adicionar a regra");
@@ -177,7 +174,7 @@ namespace filtragemParam
 
             UdpClient udpClient = new UdpClient();
             Byte[] sendBytes = Encoding.ASCII.GetBytes(json);
-            udpClient.Send(sendBytes, sendBytes.Length, "192.168.15.11", 11666);
+            udpClient.Send(sendBytes, sendBytes.Length, "255.255.255.255", 11666);
         }
 
         private void cleanRulesButton_Click(object sender, EventArgs e)

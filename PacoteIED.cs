@@ -8,6 +8,7 @@ namespace filtragemParam
 {
     public class PacoteIED
     {
+        public string URI { get; set; }
         public int Ia { get; set; }
         public int Ib { get; set; }
         public int Ic { get; set; }
