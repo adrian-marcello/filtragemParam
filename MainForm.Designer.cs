@@ -270,9 +270,10 @@
             Controls.Add(debugBox);
             Controls.Add(groupBox1);
             Controls.Add(listBoxIED);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
-            Text = "Módulo 4 - Filtragem de Parâmetros, v1.1";
+            Text = "Módulo 4 - Filtragem de Parâmetros, v1.2";
             ((System.ComponentModel.ISupportInitialize)numValor).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
